@@ -1,0 +1,24 @@
+{
+"type": "FeatureCollection",
+"name": "SARANA_PRASARANAN_TEPUNGSARI",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "OBJECTID": 1, "KETERANGAN": "Pabrik" }, "geometry": { "type": "Point", "coordinates": [ 110.17771027626307, -7.564916051179896 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 2, "KETERANGAN": "Pabrik" }, "geometry": { "type": "Point", "coordinates": [ 110.176215974930329, -7.564930327684428 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 8, "KETERANGAN": "Industri Kecil/UMKM" }, "geometry": { "type": "Point", "coordinates": [ 110.171603298009458, -7.563596382137704 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 9, "KETERANGAN": "Industri Kecil/UMKM" }, "geometry": { "type": "Point", "coordinates": [ 110.176847446890179, -7.5657830203824 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 10, "KETERANGAN": "Industri Kecil/UMKM" }, "geometry": { "type": "Point", "coordinates": [ 110.176967523957188, -7.566328877411632 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 11, "KETERANGAN": "Gudang" }, "geometry": { "type": "Point", "coordinates": [ 110.1769354900038, -7.566148136484818 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 12, "KETERANGAN": "Industri Kecil/UMKM" }, "geometry": { "type": "Point", "coordinates": [ 110.178922810539362, -7.566017151258048 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 13, "KETERANGAN": "Industri Kecil/UMKM" }, "geometry": { "type": "Point", "coordinates": [ 110.179271900691148, -7.566575404537836 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 14, "KETERANGAN": "Industri Kecil/UMKM" }, "geometry": { "type": "Point", "coordinates": [ 110.178586584898426, -7.565473429927517 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 16, "KETERANGAN": "Industri Kecil/UMKM" }, "geometry": { "type": "Point", "coordinates": [ 110.179091041744812, -7.565925243228789 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 17, "KETERANGAN": "Industri Kecil/UMKM" }, "geometry": { "type": "Point", "coordinates": [ 110.177726052999546, -7.566127761211154 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 18, "KETERANGAN": "Industri Kecil/UMKM" }, "geometry": { "type": "Point", "coordinates": [ 110.172420230693405, -7.564489215097228 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 20, "KETERANGAN": "Industri Kecil/UMKM" }, "geometry": { "type": "Point", "coordinates": [ 110.171506447208685, -7.56414047840945 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 21, "KETERANGAN": "Industri Kecil/UMKM" }, "geometry": { "type": "Point", "coordinates": [ 110.171473241556413, -7.563946573073666 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 22, "KETERANGAN": "Industri Kecil/UMKM" }, "geometry": { "type": "Point", "coordinates": [ 110.17164678305555, -7.564120283763571 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 1, "KETERANGAN": "Mushola" }, "geometry": { "type": "Point", "coordinates": [ 110.177908704160018, -7.566252551664043 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 2, "KETERANGAN": "TPS" }, "geometry": { "type": "Point", "coordinates": [ 110.176750771609264, -7.565357407901047 ] } }
+]
+}

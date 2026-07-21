@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WEBGIS - Tepungsari Lestari</title>
+  <link rel="icon" href="./assets/img/logo.png" type="image/png" />
+
+  <!-- ✅ Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ✅ LightGallery CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-thumbnail.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-zoom.min.css" />
+
+  <!-- ✅ Inter Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #f7f2e8;
+      --surface: #fffaf2;
+      --surface-strong: #fdf4e7;
+      --text: #3f2e21;
+      --muted: #6c5847;
+      --accent: #9b643f;
+      --accent-2: #c7894d;
+      --accent-soft: #f0d8b6;
+      --border: #ead8c2;
+      --shadow: 0 20px 45px rgba(77, 49, 29, 0.12);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f8f2e8 0%, #f3e9da 45%, #efe2cb 100%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at top left, rgba(255, 213, 143, 0.22), transparent 22%),
+        radial-gradient(circle at bottom right, rgba(146, 101, 58, 0.16), transparent 25%);
+      z-index: -1;
+    }
+
+    .hero-bg {
+      background-image: linear-gradient(115deg, rgba(51, 31, 20, 0.72) 0%, rgba(107, 63, 34, 0.48) 45%, rgba(185, 121, 64, 0.24) 100%),
+        url("./assets/img/IMG_400.png");
+      background-size: cover;
+      background-position: center;
+      box-shadow: inset 0 -80px 140px rgba(0, 0, 0, 0.12);
+    }
+
+    .bg-white {
+      background-color: var(--surface) !important;
+    }
+
+    .text-gray-600,
+    .text-gray-500,
+    .text-gray-700 {
+      color: var(--muted) !important;
+    }
+
+    .text-gray-800,
+    .text-gray-900 {
+      color: var(--text) !important;
+    }
+
+    .border-gray-200 {
+      border-color: var(--border) !important;
+    }
+
+    .shadow-md,
+    .shadow-lg,
+    .shadow-xl {
+      box-shadow: var(--shadow) !important;
+    }
+
+    .section-shell {
+      background: linear-gradient(180deg, rgba(255, 250, 242, 0.96) 0%, rgba(252, 244, 232, 0.96) 100%);
+      border: 1px solid rgba(234, 216, 194, 0.8);
+      box-shadow: 0 18px 40px rgba(77, 49, 29, 0.08);
+      border-radius: 1.75rem;
+    }
+
+    .section-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(240, 216, 182, 0.95) 0%, rgba(255, 245, 231, 0.95) 100%);
+      border: 1px solid rgba(155, 100, 63, 0.18);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 10px 22px rgba(155, 100, 63, 0.08);
+    }
+
+    .soft-card {
+      background: linear-gradient(140deg, var(--surface) 0%, var(--surface-strong) 100%);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+
+    .soft-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 50px rgba(77, 49, 29, 0.16);
+    }
+
+    .underline-accent {
+      position: relative;
+      display: inline-block;
+    }
+
+    .underline-accent::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(201, 137, 77, 0.4), rgba(255, 213, 143, 0.8));
+    }
+
+    /* Potensi Section Start */
+    .parent-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      gap: 16px;
+      height: 600px;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    .div1 {
+      grid-column: span 3 / span 3;
+      grid-row: span 3 / span 3;
+      grid-column-start: 1;
+      grid-row-start: 4;
+    }
+
+    .div2 {
+      grid-column: span 2 / span 2;
+      grid-row: span 3 / span 3;
+      grid-column-start: 2;
+      grid-row-start: 1;
+    }
+
+    .div3 {
+      grid-row: span 3 / span 3;
+      grid-column-start: 1;
+      grid-row-start: 1;
+    }
+
+    .div5 {
+      grid-column: span 2 / span 2;
+      grid-row: span 6 / span 6;
+      grid-column-start: 4;
+      grid-row-start: 1;
+    }
+
+    .card-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .floating-card {
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .floating-card:hover {
+      z-index: 20;
+    }
+
+    .card-content {
+      transition: all 0.4s ease-in-out;
+    }
+
+    .card-title-static {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      z-index: 10;
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.4s ease-in-out;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+    }
+
+    .floating-card:hover .card-title-static {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .card-title-hover {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.4s ease-in-out;
+      transition-delay: 0.1s;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+    }
+
+    .floating-card:hover .card-title-hover {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .text-overlay {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease-in-out;
+      position: absolute;
+      top: 84px;
+      left: 24px;
+      right: 24px;
+      background: rgba(0, 0, 0, 0.18);
+      padding: 1rem;
+      border-radius: 0.85rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .floating-card:hover .text-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .bg-image {
+      transition: all 0.6s ease-in-out;
+      transform: translateZ(0);
+      will-change: transform;
+    }
+
+    .floating-card:hover .bg-image {
+      transform: scale(1.06) translateZ(0);
+      filter: brightness(0.72) saturate(1.08);
+    }
+
+    .indent-paragraph {
+      text-indent: 1.5rem;
+    }
+
+    .text-justify {
+      text-align: justify;
+    }
+
+    .image-only .card-title,
+    .image-only .text-overlay {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .parent-grid {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        gap: 1.5rem;
+      }
+
+      .floating-card {
+        height: 280px !important;
+      }
+    }
+
+    .footer-bg {
+      background: linear-gradient(135deg, #6e472f 0%, #8b5d3b 45%, #a56b43 100%);
+    }
+
+    .social-hover:hover {
+      transform: translateY(-3px);
+      transition: all 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: #ffe2b7;
+      transition: all 0.3s ease;
+    }
+
+    .floating-animation {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .pulse-green {
+      animation: pulseGreen 2s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(255, 213, 143, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 213, 143, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 213, 143, 0); }
+    }
+  </style>
+</head>
+
+<body class="bg-[#f7f2e8]">
+  <!-- ✅ Navbar -->
+  <nav class="absolute top-0 w-full z-50 pt-5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex justify-between items-center rounded-full border border-white/25 bg-white/15 px-4 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.12)] backdrop-blur-xl">
+        <div class="flex items-center">
+          <span class="text-lg md:text-xl font-extrabold text-white tracking-wide">Dusun Tepungsari</span>
+        </div>
+
+        <div class="hidden lg:flex items-center gap-1 rounded-full px-2 py-1">
+          <a href="#" class="nav-link active text-sm font-semibold text-white px-4 py-2 rounded-full">Home</a>
+          <a href="#sekilas" class="nav-link text-sm font-medium text-white/80 hover:text-white px-4 py-2 rounded-full">Sekilas</a>
+          <a href="#infografis" class="nav-link text-sm font-medium text-white/80 hover:text-white px-4 py-2 rounded-full">Infografis</a>
+          <a href="#sejarah" class="nav-link text-sm font-medium text-white/80 hover:text-white px-4 py-2 rounded-full">Sejarah</a>
+          <a href="#potensi" class="nav-link text-sm font-medium text-white/80 hover:text-white px-4 py-2 rounded-full">Potensi</a>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <a href="./map.html"
+            class="px-5 py-2.5 text-sm font-bold text-white rounded-full border border-white/30 bg-white/10 transition-all duration-300 hover:bg-white/20 hover:scale-[1.02] backdrop-blur-sm">
+            Peta Interaktif
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ✅ Hero Section -->
+  <section class="hero-bg relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.16),transparent_38%)]"></div>
+    <div class="relative z-10 text-center max-w-4xl mx-auto px-6 py-20">
+      <div class="inline-flex items-center px-4 py-2 mb-6 rounded-full border border-white/30 bg-white/10 text-sm font-semibold text-[#fff2dc] backdrop-blur-md">
+        <span class="mr-2 text-base">🌿</span>
+        Menyambut keindahan alam dan budaya lokal
+      </div>
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-6 tracking-tight">
+        Selamat Datang di<br />
+        <span class="text-[#ffd58f]">DUSUN TEPUNGSARI</span>
+      </h1>
+      <p class="text-sm md:text-xl text-[#fce8c8] mb-10 max-w-2xl mx-auto leading-relaxed">
+        Sebuah dusun nan asri di lereng Magelang, dikelilingi hamparan sawah,
+        kebun, dan hijaunya alam. Temukan keunikan budaya, potensi lokal, dan
+        sejarah yang mengakar kuat di Desa Sumberarum, Kecamatan Tempuran, Kabupaten Magelang.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 mb-10">
+        <span class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-[#fff3de] backdrop-blur-sm">🌾 Sawah yang subur</span>
+        <span class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-[#fff3de] backdrop-blur-sm">🏡 Budaya lokal</span>
+        <span class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-[#fff3de] backdrop-blur-sm">🗺️ Peta interaktif</span>
+      </div>
+      <a href="./map.html"
+        class="inline-flex items-center px-7 py-3.5 text-white text-xs sm:text-sm md:text-base font-semibold bg-gradient-to-r from-[#a66b43] to-[#c7894d] rounded-full shadow-[0_15px_35px_rgba(166,107,67,0.35)] hover:scale-[1.03] transition-all duration-300">
+        Jelajahi Tepungsari dengan Peta Interaktif
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent to-[#f7f2e8]"></div>
+  </section>
+
+  <!-- ✅ Sekilas Section -->
+  <section class="py-16 lg:py-24" id="sekilas">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="section-shell p-8 lg:p-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div class="lg:col-span-7 fade-in">
+            <div class="section-chip mb-6">
+              <span class="w-2 h-2 bg-[#a66b43] rounded-full"></span>
+              Sekilas
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-6">
+              Tentang Dusun <span class="text-[#a66b43] underline-accent">Tepungsari</span>
+            </h2>
+            <p class="text-gray-600 text-lg leading-relaxed mb-8 indent-paragraph text-justify">
+              Dusun Tepungsari, di Desa Sumberarum, Kecamatan Tempuran, Magelang, adalah wilayah pedesaan agraris seluas sekitar 43,3 hektar. Wilayah ini didominasi oleh sawah, ladang, dan permukiman, dengan topografi dataran rendah yang dialiri sungai kecil untuk irigasi. Secara administratif terbagi menjadi 2 RT dan 1 RW. Dusun ini berbatasan dengan Dusun Dasekan di sisi utara, Dusun Kerban, Dimajar 1 & 2 di sisi selatan, serta Dusun Teluk di sisi timur.
+            </p>
+            <a href="./map.html" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#a66b43] to-[#c7894d] hover:from-[#935b37] hover:to-[#b97841] text-white font-semibold rounded-full transition-all shadow-lg no-underline">
+              Jelajahi Lebih Lanjut
+              <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="lg:col-span-5 fade-in">
+            <img src="./assets/img/BATAS_DUSUN_TEPUNGSARI.png"
+              alt="Sekilas Tentang Dusun Tepungsari" class="w-full h-[320px] md:h-[420px] object-cover rounded-[24px] border border-[#ead8c2] shadow-[0_20px_45px_rgba(77,49,29,0.12)]" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Infografis / Statistik Section -->
+  <section class="py-20" id="infografis">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <div class="section-chip mb-6">
+          <span class="w-2 h-2 bg-[#a66b43] rounded-full"></span>
+          Infografis
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <span class="text-[#a66b43] underline-accent">Dusun Tepungsari</span> Dalam Angka
+        </h2>
+        <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+          Dusun Tepungsari bukan hanya kaya akan potensi alamnya, tetapi juga
+          memiliki data statistik yang mencerminkan karakteristik fisik dan
+          sosial masyarakatnya. Temukan potret lengkap Tepungsari melalui
+          angka-angka yang berbicara.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="soft-card p-6 rounded-[24px] text-center">
+          <div class="text-[#a66b43] mb-4">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l6-2 6 2 6-2v13l-6 2-6-2-6 2V6z" /></svg>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">43.3 ha</div>
+          <div class="text-gray-600 font-medium mb-1">Luas Wilayah</div>
+          <p class="text-sm text-gray-500">Luas administrasi dusun Tepungsari mencakup area sawah, kebun, dan permukiman.</p>
+        </div>
+
+        <div class="soft-card p-6 rounded-[24px] text-center">
+          <div class="text-[#a66b43] mb-4">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9.5l9-7 9 7V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V9.5z" /></svg>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">87</div>
+          <div class="text-gray-600 font-medium mb-1">Jumlah Bangunan</div>
+          <p class="text-sm text-gray-500">Meliputi rumah warga, fasilitas umum, dan bangunan lainnya.</p>
+        </div>
+
+        <div class="soft-card p-6 rounded-[24px] text-center">
+          <div class="text-[#a66b43] mb-4">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4" /><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 21a6.5 6.5 0 0113 0" /></svg>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">59</div>
+          <div class="text-gray-600 font-medium mb-1">Kepala Keluarga</div>
+          <p class="text-sm text-gray-500">Jumlah kepala keluarga yang terdaftar dalam administrasi dusun.</p>
+        </div>
+
+        <div class="soft-card p-6 rounded-[24px] text-center">
+          <div class="text-[#a66b43] mb-4">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path stroke-linecap="round" stroke-linejoin="round" d="M23 20v-2a4 4 0 00-3-3.87" /><path stroke-linecap="round" stroke-linejoin="round" d="M16 3.13a4 4 0 010 7.75" /></svg>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">173</div>
+          <div class="text-gray-600 font-medium mb-1">Jumlah Penduduk</div>
+          <p class="text-sm text-gray-500">Terdiri dari 84 laki-laki dan 89 perempuan.</p>
+        </div>
+
+        <div class="soft-card p-6 rounded-[24px] text-center">
+          <div class="text-[#a66b43] mb-4">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-7 9 7v8a1 1 0 01-1 1h-5v-4H9v4H4a1 1 0 01-1-1v-8z" /><path stroke-linecap="round" stroke-linejoin="round" d="M9 21V15h6v6" /></svg>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">2</div>
+          <div class="text-gray-600 font-medium mb-1">Fasilitas Umum</div>
+          <p class="text-sm text-gray-500">Mencakup 1 Musholla dan 1 Pos Ronda</p>
+        </div>
+
+        <div class="soft-card p-6 rounded-[24px] text-center">
+          <div class="text-[#a66b43] mb-4">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4" /><path stroke-linecap="round" stroke-linejoin="round" d="M7 13L5.4 5M7 13l-2 4h13.6a1 1 0 00.9-.6l3.1-7.4" /><circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" /></svg>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">12</div>
+          <div class="text-gray-600 font-medium mb-1">Jumlah UMKM dan Perdagangan Jasa</div>
+          <p class="text-sm text-gray-500">Termasuk UMKM bidang makanan, toko kelontong, dan kerajinan tangan.</p>
+        </div>
+
+        <div class="soft-card p-6 rounded-[24px] text-center">
+          <div class="text-[#a66b43] mb-4">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10l4-4 4 4V20H3V10z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13 10l4-4 4 4v10h-8V10z" /></svg>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">2</div>
+          <div class="text-gray-600 font-medium mb-1">Jumlah RT</div>
+          <p class="text-sm text-gray-500">Tepungsari terbagi menjadi 2 Rukun Tetangga sebagai satuan wilayah sosial terkecil.</p>
+        </div>
+
+        <div class="soft-card p-6 rounded-[24px] text-center">
+          <div class="text-[#a66b43] mb-4">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 12a4 4 0 100-8 4 4 0 000 8z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" /><path stroke-linecap="round" stroke-linejoin="round" d="M20 8h1M20 8a4 4 0 00-2-3M20 8a4 4 0 012 3" /></svg>
+          </div>
+          <div class="text-3xl font-bold text-gray-800 mb-2">Buruh</div>
+          <div class="text-gray-600 font-medium mb-1">Mata Pencaharian Utama</div>
+          <p class="text-sm text-gray-500">Sebagian besar warga Tepungsari bekerja sebagai buruh tani dan karyawan di sektor informal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Sejarah Timeline Section -->
+  <section class="py-20" id="sejarah">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <div class="section-chip mb-6">
+          <span class="w-2 h-2 bg-[#a66b43] rounded-full"></span>
+          Sejarah
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Toponimi
+          <span class="text-[#a66b43] underline-accent">Dusun Tepungsari</span>
+        </h2>
+        <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+          Dari masa ke masa, Dusun Tepungsari telah menorehkan jejak sejarah
+          yang kaya. Mulai dari pemekaran wilayah hingga menjadi dusun
+          yang berkembang seperti sekarang ini.
+        </p>
+      </div>
+
+      <!-- Timeline Container -->
+      <div class="relative max-w-4xl mx-auto">
+        <!-- Vertical Line - Hidden on mobile, visible on larger screens -->
+        <div
+          class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-[#a66b43] via-[#c7894d] to-[#e7b878]">
+        </div>
+
+        <!-- Mobile Vertical Line - Left aligned for mobile -->
+        <div class="lg:hidden absolute left-6 w-1 h-full bg-gradient-to-b from-[#a66b43] via-[#c7894d] to-[#e7b878]">
+        </div>
+
+        <!-- Timeline Items -->
+        <div class="space-y-4 lg:space-y-negative-4">
+          <!-- Timeline Item 1 - Masa Awal -->
+          <div class="relative flex items-center">
+            <!-- Dot - Desktop -->
+            <div
+              class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#a66b43] rounded-full border-4 border-[#fffaf2] shadow-lg z-10">
+            </div>
+
+            <!-- Dot - Mobile -->
+            <div
+              class="lg:hidden absolute left-6 transform -translate-x-1/2 w-4 h-4 bg-[#a66b43] rounded-full border-4 border-[#fffaf2] shadow-lg z-10">
+            </div>
+
+            <!-- Content - Desktop Left, Mobile Full Width -->
+            <div class="w-full lg:w-1/2 pl-16 lg:pl-0 lg:pr-8 lg:text-right">
+              <div class="soft-card p-6 rounded-[24px] border border-[#ead8c2] hover:shadow-xl transition-shadow">
+                <h3 class="text-xl font-bold text-gray-900 mb-3">
+                  Masa Awal
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Dusun Tepungsari awalnya merupakan bagian dari wilayah Dusun Dimajar, yang termasuk dalam wilayah administratif Desa Sumberarum, Kecamatan Tempuran, Kabupaten Magelang. Pada tahun 1984, wilayah ini mengalami pemekaran yang diprakarsai oleh mahasiswa Kuliah Kerja Nyata (KKN) yang sedang melaksanakan pengabdian masyarakat di daerah tersebut. Hasil dari pemekaran ini adalah terbentuknya sebuah dusun baru yang kini dikenal sebagai Dusun Tepungsari. Sejak saat itu, Tepungsari berkembang sebagai komunitas yang mandiri dan memiliki identitas tersendiri.
+                </p>
+              </div>
+            </div>
+
+            <!-- Empty Right - Desktop only -->
+            <div class="hidden lg:block w-1/2 pl-8"></div>
+          </div>
+
+          <!-- Timeline Item 2 - Asal Usul -->
+          <div class="relative flex items-center">
+            <!-- Dot - Desktop -->
+            <div
+              class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#a66b43] rounded-full border-4 border-[#fffaf2] shadow-lg z-10">
+            </div>
+
+            <!-- Dot - Mobile -->
+            <div
+              class="lg:hidden absolute left-6 transform -translate-x-1/2 w-4 h-4 bg-[#a66b43] rounded-full border-4 border-[#fffaf2] shadow-lg z-10">
+            </div>
+
+            <!-- Empty Left - Desktop only -->
+            <div class="hidden lg:block w-1/2 pr-8"></div>
+
+            <!-- Content - Desktop Right, Mobile Full Width -->
+            <div class="w-full lg:w-1/2 pl-16 lg:pl-8">
+              <div class="soft-card p-6 rounded-[24px] border border-[#ead8c2] hover:shadow-xl transition-shadow">
+                <h3 class="text-xl font-bold text-gray-900 mb-3">
+                  Asal-Usul Nama Tepungsari
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Nama "Tepungsari" diberikan pada saat pemekaran wilayah tersebut dari Dusun Dimajar. Nama ini mencerminkan semangat baru masyarakat dalam membentuk dusun yang mandiri. Seiring waktu, penghargaan terhadap tokoh-tokoh lokal diwujudkan melalui penamaan jalan, seperti Jalan Kyai Samai. Nama ini tidak hanya berfungsi sebagai penunjuk lokasi, tetapi juga menjadi simbol penghormatan atas jasa dan kontribusi beliau dalam kehidupan sosial dan spiritual masyarakat.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Item 3 - Pembangunan Fasilitas -->
+          <div class="relative flex items-center">
+            <!-- Dot - Desktop -->
+            <div
+              class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#a66b43] rounded-full border-4 border-[#fffaf2] shadow-lg z-10">
+            </div>
+
+            <!-- Dot - Mobile -->
+            <div
+              class="lg:hidden absolute left-6 transform -translate-x-1/2 w-4 h-4 bg-[#a66b43] rounded-full border-4 border-[#fffaf2] shadow-lg z-10">
+            </div>
+
+            <!-- Content - Desktop Left, Mobile Full Width -->
+            <div class="w-full lg:w-1/2 pl-16 lg:pl-0 lg:pr-8 lg:text-right">
+              <div class="soft-card p-6 rounded-[24px] border border-[#ead8c2] hover:shadow-xl transition-shadow">
+                <h3 class="text-xl font-bold text-gray-900 mb-3">
+                  Budaya Keagamaan
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Dusun Tepungsari dikenal sebagai masyarakat yang menjunjung tinggi nilai-nilai religius. Tradisi keagamaan yang masih dijaga dengan baik hingga kini adalah tradisi nyadran, yaitu doa bersama dan bersih makam yang dilakukan setiap bulan Ruwah pada Kamis kedua. Selain itu, masyarakat juga melaksanakan ziarah ke makam Kyai Raden Soleh, tokoh penyebar Islam yang dihormati, setiap tanggal 1 Suro dan saat Maulid Nabi. Sosok Kyai Samai, sebagai tokoh agama yang dihormati, juga menjadi panutan spiritual warga dan dikenang melalui penamaan jalan utama di dusun tersebut.
+                </p>
+              </div>
+            </div>
+
+            <!-- Empty Right - Desktop only -->
+            <div class="hidden lg:block w-1/2 pl-8"></div>
+          </div>
+
+          <!-- Timeline Item 4 - Perkembangan -->
+          <div class="relative flex items-center">
+            <!-- Dot - Desktop -->
+            <div
+              class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#a66b43] rounded-full border-4 border-[#fffaf2] shadow-lg z-10">
+            </div>
+
+            <!-- Dot - Mobile -->
+            <div
+              class="lg:hidden absolute left-6 transform -translate-x-1/2 w-4 h-4 bg-[#a66b43] rounded-full border-4 border-[#fffaf2] shadow-lg z-10">
+            </div>
+
+            <!-- Empty Left - Desktop only -->
+            <div class="hidden lg:block w-1/2 pr-8"></div>
+
+            <!-- Content - Desktop Right, Mobile Full Width -->
+            <div class="w-full lg:w-1/2 pl-16 lg:pl-8">
+              <div class="soft-card p-6 rounded-[24px] border border-[#ead8c2] hover:shadow-xl transition-shadow">
+                <h3 class="text-xl font-bold text-gray-900 mb-3">
+                  Dominasi Pertanian
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Seiring dengan perkembangan dusun, sektor pertanian menjadi salah satu tulang punggung perekonomian warga. Lahan di Dusun Tepungsari didominasi oleh pertanian musiman, mengikuti pola tanam lokal yang telah berlangsung turun-temurun. Kegiatan pertanian ini tidak hanya menunjang kebutuhan pangan, tetapi juga memperkuat keterikatan sosial melalui kerja sama dan gotong royong antarwarga dalam proses bertani.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Item 5 - Era Modern -->
+          <div class="relative flex items-center">
+            <!-- Dot - Desktop -->
+            <div
+              class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#a66b43] rounded-full border-4 border-[#fffaf2] shadow-lg z-10">
+            </div>
+
+            <!-- Dot - Mobile -->
+            <div
+              class="lg:hidden absolute left-6 transform -translate-x-1/2 w-4 h-4 bg-[#a66b43] rounded-full border-4 border-[#fffaf2] shadow-lg z-10">
+            </div>
+
+            <!-- Content - Desktop Left, Mobile Full Width -->
+            <div class="w-full lg:w-1/2 pl-16 lg:pl-0 lg:pr-8 lg:text-right">
+              <div class="soft-card p-6 rounded-[24px] border border-[#ead8c2] hover:shadow-xl transition-shadow">
+                <h3 class="text-xl font-bold text-gray-900 mb-3">
+                  Era Modern
+                </h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Kini, Dusun Tepungsari terdiri dari dua RT (RT 1 dan RT 2) yang berada dalam satu RW, yaitu RW 13. Meskipun jumlah penduduknya tidak besar, masyarakatnya dikenal memiliki semangat kekeluargaan dan solidaritas yang tinggi. Modernisasi yang masuk ke dusun ini tidak menghapus nilai-nilai lokal, tetapi justru memperkuat identitas komunitas. Sosok seperti Bapak Sarjono dan Ibu Samai tetap dihormati sebagai sesepuh yang menjadi panutan masyarakat. Penghargaan terhadap nilai sejarah dan tokoh lokal ini menunjukkan bagaimana Dusun Tepungsari mampu berkembang dengan tetap mempertahankan akar budayanya.
+                </p>
+              </div>
+            </div>
+
+            <!-- Empty Right - Desktop only -->
+            <div class="hidden lg:block w-1/2 pl-8"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ Potensi Dusun Section -->
+  <section class="py-20" id="potensi">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <div class="section-chip mb-6">
+          <span class="w-2 h-2 bg-[#a66b43] rounded-full"></span>
+          Potensi Dusun
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Kekayaan <span class="text-[#a66b43] underline-accent">Dusun Tepungsari</span>
+        </h2>
+        <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+          Dusun Tepungsari memiliki beragam potensi yang menjadi kebanggaan
+          masyarakat. Dari hasil pertanian organik hingga tradisi budaya yang
+          masih terjaga, setiap sudut dusun ini menyimpan kekayaan yang tak
+          ternilai bagi generasi mendatang.
+        </p>
+      </div>
+
+      <!-- Cards Container - Structured Grid Layout -->
+      <div class="parent-grid">
+        <!-- Card 1 - Pertanian Organik (div1) -->
+        <div class="floating-card bg-white rounded-[28px] overflow-hidden shadow-lg hover:shadow-2xl div1">
+          <!-- Background Image -->
+          <div class="bg-image absolute inset-0 bg-cover bg-center" style="
+                background-image: url('./assets/img/kebun.jpg');
+              "></div>
+
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+
+          <!-- Content -->
+          <div class="card-content absolute inset-0">
+            <!-- Static title (visible by default at bottom left) -->
+            <h3 class="card-title-static text-white text-2xl font-bold">
+              Perkebunan Produktif
+            </h3>
+
+            <!-- Hover title (appears at top on hover) -->
+            <h3 class="card-title-hover text-white text-2xl font-bold">
+              Perkebunan Produktif
+            </h3>
+
+            <!-- Hover Text -->
+            <div class="text-overlay">
+              <p class="text-white/90 text-sm leading-relaxed indent-paragraph text-justify">
+                Lahan yang luas dan subur yang berpotensi untuk lahan perkebunan berbagai komoditas pertanian seperti perkebunan singkong, pisang, dan pepaya.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 - Kerajinan Tangan (div2) -->
+        <div class="floating-card bg-white rounded-[28px] overflow-hidden shadow-lg hover:shadow-2xl div2">
+          <!-- Background Image -->
+          <div class="bg-image absolute inset-0 bg-cover bg-center" style="
+                background-image: url('./assets/img/rest-area.jpeg');
+              "></div>
+
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+
+          <!-- Content -->
+          <div class="card-content absolute inset-0">
+            <!-- Static title (visible by default at bottom left) -->
+            <h3 class="card-title-static text-white text-2xl font-bold">
+              Rest Area
+            </h3>
+
+            <!-- Hover title (appears at top on hover) -->
+            <h3 class="card-title-hover text-white text-2xl font-bold">
+              Rest Area
+            </h3>
+
+            <!-- Hover Text -->
+            <div class="text-overlay">
+              <p class="text-white/90 text-sm leading-relaxed indent-paragraph text-justify">
+                Pemanfaatan lahan kosong di tepi jalan utama dapat dijadikan rest area dan sentra oleh - oleh khas magelang untuk wisatawan dari Borobudur.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 - Wisata Alam (div3) -->
+        <div class="floating-card bg-white rounded-[28px] overflow-hidden shadow-lg hover:shadow-2xl div3">
+          <!-- Background Image -->
+          <div class="bg-image absolute inset-0 bg-cover bg-center" style="
+                background-image: url('./assets/img/umkm.jpg');
+              "></div>
+
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+
+          <!-- Content -->
+          <div class="card-content absolute inset-0">
+            <!-- Static title (visible by default at bottom left) -->
+            <h3 class="card-title-static text-white text-2xl font-bold">
+              Potensi UMKM
+            </h3>
+
+            <!-- Hover title (appears at top on hover) -->
+            <h3 class="card-title-hover text-white text-2xl font-bold">
+              Potensi UMKM
+            </h3>
+
+            <!-- Hover Text -->
+            <div class="text-overlay">
+              <p class="text-white/90 text-sm leading-relaxed indent-paragraph text-justify">
+                Hasil perkebunan memiliki potensi untuk diproduksi massal dan didistribusikan ke berbagai wilayah. Produk seperti keripik pisang menjadi komoditas unggulan yang meningkatkan perekonomian lokal.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 - Kuliner Lokal (div5) -->
+        <div class="floating-card bg-white rounded-[28px] overflow-hidden shadow-lg hover:shadow-2xl div5">
+          <!-- Background Image -->
+          <div class="bg-image absolute inset-0 bg-cover bg-center" style="
+                background-image: url('./assets/img/sawah.png');
+              "></div>
+
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+
+          <!-- Content -->
+          <div class="card-content absolute inset-0">
+            <!-- Static title (visible by default at bottom left) -->
+            <h3 class="card-title-static text-white text-2xl font-bold">
+              Lahan Pertanian 
+            </h3>
+
+            <!-- Hover title (appears at top on hover) -->
+            <h3 class="card-title-hover text-white text-2xl font-bold">
+              Lahan Pertanian
+            </h3>
+
+            <!-- Hover Text -->
+            <div class="text-overlay">
+              <p class="text-white/90 text-sm leading-relaxed indent-paragraph text-justify">
+                Lahan pertanian yang luas menghasilkan produk pertanian untuk mencukupi kebutuhan pangan masyarakat serta sebagai mata pencaharian utama.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ✅ Footer -->
+  <footer class="footer-bg text-white relative overflow-hidden">
+    <!-- Decorative Elements -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-10 left-10 w-32 h-32 border border-white/20 rounded-full floating-animation"></div>
+      <div class="absolute top-20 right-20 w-24 h-24 border border-white/20 rounded-full floating-animation" style="animation-delay: 1s;"></div>
+      <div class="absolute bottom-20 left-1/4 w-16 h-16 border border-white/20 rounded-full floating-animation" style="animation-delay: 2s;"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-16 pb-8">
+      <!-- Main Footer Content -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        
+        <!-- Column 1: About Dusun -->
+        <div class="space-y-4">
+          <div class="flex items-center space-x-2 mb-6">
+            <div class="w-3 h-3 bg-green-400 rounded-full pulse-green"></div>
+            <h3 class="text-xl font-bold">Dusun Tepungsari</h3>
+          </div>
+          <p class="text-green-100 text-sm leading-relaxed text-justify">
+            Sebuah dusun nan asri di lereng Magelang, dikelilingi hamparan sawah, kebun, dan hijaunya alam. Melestarikan budaya dan tradisi untuk generasi mendatang.
+          </p>
+          <div class="flex items-center space-x-2 text-green-200 text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <span>Desa Sumberarum, Kec. Tempuran, Magelang</span>
+          </div>
+        </div>
+
+        <!-- Column 2: Statistics -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold mb-6 text-green-300">Data Dusun</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-green-100 text-sm">Luas Wilayah</span>
+              <span class="text-white font-semibold text-sm">43.3 ha</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-green-100 text-sm">Jumlah Penduduk</span>
+              <span class="text-white font-semibold text-sm">173 jiwa</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-green-100 text-sm">Kepala Keluarga</span>
+              <span class="text-white font-semibold text-sm">55 KK</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-green-100 text-sm">Jumlah RT</span>
+              <span class="text-white font-semibold text-sm">2 RT</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-green-100 text-sm">UMKM Aktif</span>
+              <span class="text-white font-semibold text-sm">6 Unit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: Quick Links -->
+        <div class="space-y-4 ml-base sm:ml-4 ">
+          <h3 class="text-lg font-semibold mb-6 text-green-300">Navigasi Cepat</h3>
+          <nav class="space-y-3">
+            <a href="#" class="footer-link block text-green-100 text-sm hover:text-green-300">Beranda</a>
+            <a href="#sekilas" class="footer-link block text-green-100 text-sm hover:text-green-300">Sekilas Dusun</a>
+            <a href="#infografis" class="footer-link block text-green-100 text-sm hover:text-green-300">Infografis</a>
+            <a href="#sejarah" class="footer-link block text-green-100 text-sm hover:text-green-300">Sejarah</a>
+            <a href="#potensi" class="footer-link block text-green-100 text-sm hover:text-green-300">Potensi Dusun</a>
+            <a href="./map.html" class="footer-link block text-green-100 text-sm hover:text-green-300">Peta Interaktif</a>
+          </nav>
+        </div>
+
+        <!-- Column 4: Contact Only -->
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold mb-6 text-green-300">Hubungi Kami</h3>
+          
+          <!-- Contact Info -->
+          <div class="space-y-4">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20 flex-shrink-0">
+                <svg class="w-4 h-4 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="text-green-100 text-sm">Kepala Dusun</p>
+                <p class="text-white text-sm font-medium break-all">+62 858-7850-2295</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20 flex-shrink-0">
+                <svg class="w-4 h-4 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="text-green-100 text-sm">Email</p>
+                <p class="text-white text-sm font-medium break-all">info@tepungsari.id</p>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20 flex-shrink-0">
+                <svg class="w-4 h-4 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="text-green-100 text-sm">Alamat</p>
+                <p class="text-white text-sm font-medium">Desa Sumberarum, Kec. Tempuran, Magelang</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="border-t border-white/20 my-8"></div>
+
+      <!-- Bottom Footer -->
+      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div class="text-center md:text-left">
+          <p class="text-green-100 text-sm">
+            © 2026 Dusun Tepungsari, Desa Sumberarum. 
+            <span class="text-green-300">Semua hak dilindungi.</span>
+          </p>
+        </div>
+        
+        <div class="flex items-center space-x-6">
+          <div class="flex items-center space-x-2 text-green-200 text-xs">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Terakhir diperbarui: Juli 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="absolute bottom-8 right-8">
+      <button onclick="scrollToTop()" class="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full border border-white/30 flex items-center justify-center hover:bg-white/20 transition-all duration-300 group">
+        <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+      </button>
+    </div>
+  </footer>
+
+  <script>
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Show/hide back to top button based on scroll position
+    window.addEventListener('scroll', function() {
+      const backToTopBtn = document.querySelector('.absolute.bottom-8.right-8 button');
+      if (window.pageYOffset > 300) {
+        backToTopBtn.style.opacity = '1';
+        backToTopBtn.style.visibility = 'visible';
+      } else {
+        backToTopBtn.style.opacity = '0';
+        backToTopBtn.style.visibility = 'hidden';
+      }
+    });
+
+    // Initialize back to top button state
+    document.addEventListener('DOMContentLoaded', function() {
+      const backToTopBtn = document.querySelector('.absolute.bottom-8.right-8 button');
+      backToTopBtn.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
+      backToTopBtn.style.opacity = '0';
+      backToTopBtn.style.visibility = 'hidden';
+    });
+  </script>
+  
+</body>
+
+</html>
