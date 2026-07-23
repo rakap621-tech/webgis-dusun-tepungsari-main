@@ -569,27 +569,27 @@
           paint: {
             'circle-radius': [
               'match',
-              ['get', 'KETERANGAN'],
-              'Pabrik', 12,
-              'Industri Kecil/UMKM', 8,
-              'Gudang', 10,
-              'Mushola', 7,
-              'TPS', 6,
-              8
+              ['get', ''],
+              '1', 16,
+              '2', 14,
+              '3', 12,
+              '39', 10,
+              10
             ],
             'circle-color': [
               'match',
-              ['get', 'KETERANGAN'],
-              'Pabrik', '#8B008B',
-              'Industri Kecil/UMKM', '#FF6B6B',
-              'Gudang', '#708090',
-              'Mushola', '#4ECDC4',
-              'TPS', '#FFD700',
-              '#FFA07A'
+              ['get', 'Sub_Unsur'],
+              'Perdagangan dan Jasa', '#bd8f4c',
+              'Industri dan Pergudangan', '#63936b',
+              'Pendidikan', '#bc5f4a',
+              'Kesehatan', '#8e7d6b',
+              'Pemerintahan', '#a5865c',
+              'Sosial', '#7a8a78',
+              '#a58f74'
             ],
             'circle-stroke-width': 2,
-            'circle-stroke-color': '#FFFFFF',
-            'circle-stroke-opacity': 0.8
+            'circle-stroke-color': '#f5e8c8',
+            'circle-stroke-opacity': 0.9
           }
         });
 
@@ -599,7 +599,7 @@
           source: 'sarana_prasarana',
           layout: {
             'visibility': 'none',
-            'text-field': ['get', 'KETERANGAN'],
+            'text-field': ['get', 'Sub_Unsur'],
             'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
             'text-size': 9,
             'text-anchor': 'top',
@@ -695,28 +695,23 @@
           // 2. Sarana Prasarana
           featuresByLayer.sarana_prasarana.forEach(feature => {
             const properties = feature.properties;
-            const getIconForFacility = (keterangan) => {
-              const icons = {
-                'Pabrik': '🏭',
-                'Industri Kecil/UMKM': '🏪',
-                'Gudang': '🏬',
-                'Mushola': '🕌',
-                'TPS': '🗑️'
-              };
-              return icons[keterangan] || '🏢';
-            };
-            
-            const icon = getIconForFacility(properties.KETERANGAN);
+            const icon = properties.Sub_Unsur === '4' ? '🏛️' : properties.Sub_Unsur === '7' ? '🏪' : properties.Sub_Unsur === '9' ? '🏭' : '📍';
             
             popupContent += `
-              <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-3 text-white rounded-lg shadow-lg">
-                <div class="flex items-center">
-                  <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 text-lg flex-shrink-0">
+              <div class="bg-gradient-to-r from-[#7d6a44] to-[#4f6a4a] p-3 text-white rounded-lg shadow-lg border border-[#d8c9a4]/20">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 bg-[#f5e8c8]/15 rounded-full flex items-center justify-center text-xl text-[#f5e8c8]">
                     ${icon}
                   </div>
-                  <div>
-                    <h3 class="font-bold text-xs opacity-80 uppercase tracking-wider">Sarana Prasarana</h3>
-                    <p class="text-sm font-semibold">${properties.KETERANGAN || 'Tidak diketahui'}</p>
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-2">
+                      <span class="font-semibold text-sm uppercase tracking-[0.12em] text-[#f5e8c8]">Sarana Prasarana</span>
+                    </div>
+                    <p class="text-sm font-semibold mb-1">${properties.Toponim || 'Tidak diketahui'}</p>
+                    <div class="text-xs text-[#d8c9a4] space-y-1">
+                      <p><span class="opacity-80">Sub/Unsur:</span> <span class="font-medium">${properties.Sub_Unsur || '-'}</span></p>
+                      <p><span class="opacity-80">Keterangan:</span> <span class="font-medium">${properties.Keterangan || '-'}</span></p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -726,11 +721,11 @@
           // 3. Bangunan (DIUBAH SESUAI PERMINTAAN)
           featuresByLayer.bangunan.forEach(feature => {
             const props = feature.properties;
-            const getBuildingIcon = (keterangan) => {
-              return keterangan === 'Gedung' ? '🏢' : '🏠';
+            const getBuildingIcon = (kelas) => {
+              return kelas === 'Gedung' ? '🏢' : '🏠';
             };
             
-            const icon = getBuildingIcon(props.KETERANGAN);
+            const icon = getBuildingIcon(props.KELAS);
             
             popupContent += `
               <div class="bg-gradient-to-r from-orange-400 to-red-500 p-3 text-white rounded-lg shadow-lg">
