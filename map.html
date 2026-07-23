@@ -12,12 +12,14 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <style>
     body {
-      background: linear-gradient(135deg, #f7efe4 0%, #efe0c6 100%);
-      color: #4b3424;
+      background: linear-gradient(180deg, #272f24 0%, #324637 45%, #3c513f 100%);
+      color: #e9ddba;
+      font-family: "Plus Jakarta Sans", "Inter", sans-serif;
     }
 
     #map {
       pointer-events: auto !important;
+      background: #23392f;
     }
 
 
@@ -42,7 +44,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #374151;
+      background-color: #4f5a44;
       transition: .4s;
       border-radius: 24px;
     }
@@ -60,7 +62,7 @@
     }
 
     input:checked+.slider {
-      background-color: #10b981;
+      background-color: #9c7c4c;
     }
 
     input:checked+.slider:before {
@@ -69,17 +71,17 @@
 
     /* Glassmorphism effect */
     .glass {
-      background: rgba(84, 49, 29, 0.84);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 240, 220, 0.18);
+      background: rgba(24, 35, 28, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(162, 146, 108, 0.16);
     }
 
     .glass-light {
-      background: rgba(255, 245, 232, 0.16);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 240, 220, 0.2);
+      background: rgba(65, 78, 6, 0.18);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(162, 146, 108, 0.18);
     }
 
     /* Custom Range Slider for Pitch */
@@ -106,8 +108,8 @@
       border-radius: 50%;
       background: linear-gradient(135deg, #b77847 0%, #8b5e3c 100%);
       cursor: pointer;
-      border: 2px solid white;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     }
 
     .pitch-slider::-moz-range-thumb {
@@ -116,8 +118,8 @@
       border-radius: 50%;
       background: linear-gradient(135deg, #b77847 0%, #8b5e3c 100%);
       cursor: pointer;
-      border: 2px solid white;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     }
 
     .custom-popup-no-bg .mapboxgl-popup-content {
@@ -137,7 +139,7 @@
 
 </head>
 
-<body class="h-screen w-screen overflow-hidden bg-[#f7efe4]">
+<body class="h-screen w-screen overflow-hidden">
 
 
   <!-- Sidebar -->
@@ -146,11 +148,11 @@
 
     <div class="flex justify-between items-center mb-6">
       <div>
-        <h2 class="text-2xl font-bold text-white">Peta Interaktif</h2>
-        <p class="text-gray-300 text-sm mt-1">DUSUN TEPUNGSARI</p>
+        <h2 class="text-2xl font-bold text-[#f5e8c8]">Peta Interaktif</h2>
+        <p class="text-[#d8c9a4] text-sm mt-1">DUSUN TEPUNGSARI</p>
       </div>
       <button onclick="toggleSidebar()"
-        class="block md:hidden text-gray-800 hover:text-gray-500 text-2xl font-bold transition duration-200">
+        class="block md:hidden text-[#f5e8c8] hover:text-[#d8c9a4] text-2xl font-bold transition duration-200">
         &times;
       </button>
 
@@ -163,21 +165,21 @@
         <h3 class="text-md font-semibold mb-6 text-white tracking-wide">LAYER DATA TEMATIK</h3>
         <div class="space-y-4">
           <div class="flex items-center justify-between">
-            <span class="text-gray-200 text-sm">Sarana Prasarana</span>
+            <span class="text-[#e9ddba] text-sm">Sarana Prasarana</span>
             <label class="toggle-switch">
               <input type="checkbox" id="toggle-sarana-prasarana" onchange="toggleLayer('sarana_prasarana')">
               <span class="slider"></span>
             </label>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-gray-200 text-sm">Bangunan</span>
+            <span class="text-[#e9ddba] text-sm">Bangunan</span>
             <label class="toggle-switch">
               <input type="checkbox" id="toggle-bangunan" onchange="toggleLayer('bangunan')">
               <span class="slider"></span>
             </label>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-gray-200 text-sm">Penggunaan Lahan</span>
+            <span class="text-[#e9ddba] text-sm">Penggunaan Lahan</span>
             <label class="toggle-switch">
               <input type="checkbox" id="toggle-penggunaan-lahan" onchange="toggleLayer('penggunaan_lahan')">
               <span class="slider"></span>
@@ -191,14 +193,14 @@
         <h3 class="text-md font-semibold mb-6 text-white">LAYER BATAS ADMINISTRASI</h3>
         <div class="space-y-4">
           <div class="flex items-center justify-between">
-            <span class="text-gray-200 text-sm">Batas Desa</span>
+            <span class="text-[#e9ddba] text-sm">Batas Desa</span>
             <label class="toggle-switch">
               <input type="checkbox" id="toggle-batas-desa" checked onchange="toggleLayer('batas_desa')">
               <span class="slider"></span>
             </label>
           </div>
           <div class="flex items-center justify-between">
-            <span class="text-gray-200 text-sm">Batas Dusun</span>
+            <span class="text-[#e9ddba] text-sm">Batas Dusun</span>
             <label class="toggle-switch">
               <input type="checkbox" id="toggle-batas-dusun" checked onchange="toggleLayer('batas_dusun')">
               <span class="slider"></span>
@@ -223,7 +225,7 @@
             </label>
             <input type="range" id="pitch-slider" class="pitch-slider" min="0" max="60" value="25"
               oninput="updatePitch(this.value)">
-            <div class="flex justify-between text-xs text-gray-300">
+            <div class="flex justify-between text-xs text-[#d8c9a4]">
               <span>2D</span>
               <span id="pitch-value">25°</span>
               <span>3D</span>
@@ -243,7 +245,7 @@
 
   <!-- Hamburger Menu -->
   <button id="hamburger" onclick="toggleSidebar()"
-    class="fixed top-6 left-6 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-3 rounded-full shadow-lg z-30 md:hidden transition-all duration-200 hover:scale-105 border border-white/30">
+    class="fixed top-6 left-6 bg-[#f4e8c0]/15 backdrop-blur-sm hover:bg-[#f4e8c0]/25 text-white p-3 rounded-full shadow-lg z-30 md:hidden transition-all duration-200 hover:scale-105 border border-[#d8c9a4]/30">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
@@ -251,7 +253,7 @@
 
   <!-- Back Button -->
   <a href="./index.html"
-    class="fixed top-6 right-6 inline-flex items-center px-6 py-3 text-white text-xs sm:text-sm md:text-base font-semibold bg-white/10 backdrop-blur-sm rounded-full border border-white/30 shadow-lg hover:scale-105 transition z-30">
+    class="fixed top-6 right-6 inline-flex items-center px-6 py-3 text-white text-xs sm:text-sm md:text-base font-semibold bg-[#f4e8c0]/15 backdrop-blur-sm rounded-full border border-[#d8c9a4]/30 shadow-lg hover:scale-105 transition z-30">
     <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
     </svg>
@@ -259,14 +261,14 @@
   </a>
 
   <!-- Map Container -->
-  <div id="map" class="absolute top-0 left-0 w-full h-full md:left-80 md:w-[calc(100%-20rem)] bg-gray-900">
+  <div id="map" class="absolute top-0 left-0 w-full h-full md:left-80 md:w-[calc(100%-20rem)] bg-[#172819]">
   </div>
 
   <!-- Loading -->
   <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
-    <div class="bg-white p-6 rounded-lg shadow-xl text-center">
-      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-      <p class="text-gray-700">Memuat peta...</p>
+    <div class="bg-[#2f4136] p-6 rounded-3xl shadow-2xl text-center border border-[#8b6e45]/30">
+      <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-[#b7774a] mx-auto mb-4"></div>
+      <p class="text-[#f5e8c8]">Memuat peta...</p>
     </div>
   </div>
 
@@ -320,11 +322,11 @@
       }
     }
 
-map.on('load', async () => {
+    map.on('load', async () => {
       map.scrollZoom.enable();
 
       try {
-        // Load semua GeoJSON files secara parallel
+        // 1. Load semua GeoJSON files secara parallel
         const [
           batasDusunGeojson,
           batasDesaGeojson,
@@ -338,6 +340,44 @@ map.on('load', async () => {
           loadGeoJSON('./assets/data/SARANA_PRASARANA_TEPUNGSARI.geojson'),
           loadGeoJSON('./assets/data/BANGUNAN_TEPUNGSARI.geojson')
         ]);
+
+        // ================================================================
+        // 2. KODE BARU: INJEKSI WARNA-WARNI OTOMATIS (Bangunan & Lahan)
+        // ================================================================
+        // 1. Palet warna khusus untuk BANGUNAN
+        const paletBangunan = [
+          '#FF9AA2', '#FFB7B2', '#FFDAC1', '#E2F0CB', '#B5EAD7', '#C7CEEA', 
+          '#FAD02E', '#F8A5C2', '#81ECEC', '#A29BFE', '#FFEAA7', '#FAB1A0'
+        ];
+        let idxBgn = 0;
+        const mapWarnaBgn = {};
+        
+        bangunanGeojson.features.forEach((feature) => {
+          const key = feature.properties.FUNGSI || feature.properties.PL || feature.properties.KETERANGAN || 'Default';
+          if (!mapWarnaBgn[key]) {
+            mapWarnaBgn[key] = paletBangunan[idxBgn % paletBangunan.length];
+            idxBgn++;
+          }
+          feature.properties.WARNA_BANGUNAN = mapWarnaBgn[key];
+        });
+
+        // 2. Palet warna khusus untuk PENGGUNAAN LAHAN
+        const paletLahan = [
+          '#D7BDE2', '#A9DFBF', '#F9E79F', '#F1948A', '#85C1E9', '#BB8FCE',
+          '#76D7C4', '#F0B27A', '#85929E', '#FAD7A0', '#D98880', '#AED6F1'
+        ];
+        let idxLhn = 0;
+        const mapWarnaLhn = {};
+
+        penggunaanLahanGeojson.features.forEach((feature) => {
+          const key = feature.properties.PL || feature.properties.KETERANGAN || 'Default';
+          if (!mapWarnaLhn[key]) {
+            mapWarnaLhn[key] = paletLahan[idxLhn % paletLahan.length];
+            idxLhn++;
+          }
+          feature.properties.WARNA_LAHAN = mapWarnaLhn[key];
+        });
+        // ================================================================
 
         // === BATAS DUSUN LAYERS (Layer paling bawah) ===
         map.addSource('batas_dusun', {
@@ -392,7 +432,7 @@ map.on('load', async () => {
           }
         });
 
-        // === BATAS DESA LAYERS (Layer di atas batas dusun) ===
+        // === BATAS DESA LAYERS ===
         map.addSource('batas_desa', {
           type: 'geojson',
           data: batasDesaGeojson
@@ -431,7 +471,7 @@ map.on('load', async () => {
           }
         });
 
-        // === PENGGUNAAN LAHAN LAYERS (berdasarkan KETERANGAN) ===
+        // === PENGGUNAAN LAHAN LAYERS (Simbologi Otomatis) ===
         map.addSource('penggunaan_lahan', {
           type: 'geojson',
           data: penggunaanLahanGeojson
@@ -442,30 +482,11 @@ map.on('load', async () => {
           type: 'fill',
           source: 'penggunaan_lahan',
           layout: {
-            'visibility': 'none' // Default hidden
+            'visibility': 'none'
           },
           paint: {
-            'fill-color': [
-              'match',
-              ['get', 'KETERANGAN'], // Menggunakan field 'KETERANGAN'
-              'Hutan', '#006400',
-              'Hutan Rakyat', '#228B22',
-              'Industri dan Perdagangan', '#8B008B',
-              'Kebun Campur', '#32CD32',
-              'Lahan Terbuka (Tanah Kosong)', '#DEB887',
-              'Pekarangan', '#F0E68C',
-              'Perdagangan dan Jasa', '#FF6347',
-              'Perkebunan', '#8FBC8F',
-              'Rumput', '#7CFC00',
-              'Sawah', '#90EE90',
-              'Semak Belukar', '#9ACD32',
-              'Sungai', '#4169E1',
-              'Tegalan/Ladang', '#DAA520',
-              'Tempat Tinggal', '#FFB6C1',
-              'Transportasi', '#696969',
-              'Vegetasi Non Budidaya Lainnya', '#98FB98',
-              '#CCCCCC' // default color
-            ],
+            // Langsung panggil properti WARNA_LAHAN yang sudah diinjeksi
+            'fill-color': ['get', 'WARNA_LAHAN'],
             'fill-opacity': 0.7
           }
         });
@@ -484,7 +505,7 @@ map.on('load', async () => {
           }
         });
 
-        // === BANGUNAN LAYERS (3D berdasarkan KETERANGAN) ===
+        // === BANGUNAN LAYERS ===
         map.addSource('bangunan', {
           type: 'geojson',
           data: bangunanGeojson
@@ -498,26 +519,20 @@ map.on('load', async () => {
             'visibility': 'none'
           },
           paint: {
-            // Warna berdasarkan KETERANGAN
-            'fill-extrusion-color': [
-              'match',
-              ['get', 'KETERANGAN'],
-              'Gedung', '#FF0000', // Merah
-              'Tempat Tinggal', '#8B4513', // Cokelat
-              '#8B4513' // default brown untuk yang lain
-            ],
+            // Memanggil properti warna khusus bangunan
+            'fill-extrusion-color': ['get', 'WARNA_BANGUNAN'],
 
-            // Tinggi berdasarkan KETERANGAN
+            // Tinggi bangunan 3D
             'fill-extrusion-height': [
               'match',
               ['get', 'KETERANGAN'],
-              'Gedung', 8, // Gedung lebih tinggi
-              'Tempat Tinggal', 4, // Rumah standar
-              4 // default height
+              'Gedung', 8,
+              'Tempat Tinggal', 4,
+              4
             ],
 
             'fill-extrusion-base': 0,
-            'fill-extrusion-opacity': 0.8,
+            'fill-extrusion-opacity': 0.9,
             'fill-extrusion-ambient-occlusion-intensity': 0.3,
             'fill-extrusion-ambient-occlusion-radius': 3,
             'fill-extrusion-vertical-gradient': true
@@ -532,13 +547,13 @@ map.on('load', async () => {
             'visibility': 'none'
           },
           paint: {
-            'line-color': '#654321',
+            'line-color': '#555555',
             'line-width': 1,
             'line-opacity': 0.6
           }
         });
 
-        // === SARANA PRASARANA LAYERS (berdasarkan KETERANGAN, di layer paling atas) ===
+        // === SARANA PRASARANA LAYERS ===
         map.addSource('sarana_prasarana', {
           type: 'geojson',
           data: saranaPrasarana
@@ -560,17 +575,17 @@ map.on('load', async () => {
               'Gudang', 10,
               'Mushola', 7,
               'TPS', 6,
-              8 // default radius
+              8
             ],
             'circle-color': [
               'match',
               ['get', 'KETERANGAN'],
-              'Pabrik', '#8B008B', // Ungu tua
-              'Industri Kecil/UMKM', '#FF6B6B', // Merah coral
-              'Gudang', '#708090', // Abu-abu
-              'Mushola', '#4ECDC4', // Tosca
-              'TPS', '#FFD700', // Kuning emas
-              '#FFA07A' // default color
+              'Pabrik', '#8B008B',
+              'Industri Kecil/UMKM', '#FF6B6B',
+              'Gudang', '#708090',
+              'Mushola', '#4ECDC4',
+              'TPS', '#FFD700',
+              '#FFA07A'
             ],
             'circle-stroke-width': 2,
             'circle-stroke-color': '#FFFFFF',
@@ -636,8 +651,10 @@ map.on('load', async () => {
 
           allFeatures.forEach(feature => {
             const layerId = feature.layer.id;
+            // Gunakan kombinasi properti unik untuk identifikasi duplikat
             const keterangan = feature.properties.KETERANGAN || 'unknown';
-            const featureKey = `${layerId}_${keterangan}`;
+            const detail = feature.properties.KET_DETAIL || 'unknown';
+            const featureKey = `${layerId}_${keterangan}_${detail}`;
             
             // Hanya tambahkan jika belum ada duplikat
             if (!processedFeatures.has(featureKey) && featuresByLayer[layerId]) {
@@ -647,53 +664,35 @@ map.on('load', async () => {
           });
 
           // Generate HTML untuk semua features
-          let popupContent = '<div class="flex flex-col space-y-2">';
+          let popupContent = '<div class="flex flex-col space-y-2 min-w-[220px]">';
           
-          // Penggunaan Lahan
+          // 1. Penggunaan Lahan
           featuresByLayer.penggunaan_lahan.forEach(feature => {
             const properties = feature.properties;
-            const getColorForLandUse = (keterangan) => {
-              const colors = {
-                'Hutan': '#006400',
-                'Hutan Rakyat': '#228B22',
-                'Industri dan Perdagangan': '#8B008B',
-                'Kebun Campur': '#32CD32',
-                'Lahan Terbuka (Tanah Kosong)': '#DEB887',
-                'Pekarangan': '#F0E68C',
-                'Perdagangan dan Jasa': '#FF6347',
-                'Perkebunan': '#8FBC8F',
-                'Rumput': '#7CFC00',
-                'Sawah': '#90EE90',
-                'Semak Belukar': '#9ACD32',
-                'Sungai': '#4169E1',
-                'Tegalan/Ladang': '#DAA520',
-                'Tempat Tinggal': '#FFB6C1',
-                'Transportasi': '#696969',
-                'Vegetasi Non Budidaya Lainnya': '#98FB98'
-              };
-              return colors[keterangan] || '#CCCCCC';
-            };
             
-            const color = getColorForLandUse(properties.KETERANGAN);
+            // Langsung ambil warna dari properti yang sudah diinjeksi
+            const color = properties.WARNA_LAHAN || '#CCCCCC';
+            // Ambil nama dari PL atau KETERANGAN
+            const namaLahan = properties.PL || properties.KETERANGAN || 'Tidak diketahui';
             
             popupContent += `
               <div class="bg-gradient-to-r from-green-400 to-blue-500 p-3 text-white rounded-lg shadow-lg">
                 <div class="flex items-center">
-                  <div class="w-8 h-8 rounded-full flex items-center justify-center mr-3" style="background-color: ${color}">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0" style="background-color: ${color}; border: 2px solid white;">
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
                     </svg>
                   </div>
                   <div>
-                    <h3 class="font-bold text-sm">Penggunaan Lahan</h3>
-                    <p class="text-xs">${properties.KETERANGAN || 'Tidak diketahui'}</p>
+                    <h3 class="font-bold text-xs opacity-80 uppercase tracking-wider">Penggunaan Lahan</h3>
+                    <p class="text-sm font-semibold">${namaLahan}</p>
                   </div>
                 </div>
               </div>
             `;
           });
 
-          // Sarana Prasarana
+          // 2. Sarana Prasarana
           featuresByLayer.sarana_prasarana.forEach(feature => {
             const properties = feature.properties;
             const getIconForFacility = (keterangan) => {
@@ -712,36 +711,43 @@ map.on('load', async () => {
             popupContent += `
               <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-3 text-white rounded-lg shadow-lg">
                 <div class="flex items-center">
-                  <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 text-lg">
+                  <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 text-lg flex-shrink-0">
                     ${icon}
                   </div>
                   <div>
-                    <h3 class="font-bold text-sm">Sarana Prasarana</h3>
-                    <p class="text-xs">${properties.KETERANGAN || 'Tidak diketahui'}</p>
+                    <h3 class="font-bold text-xs opacity-80 uppercase tracking-wider">Sarana Prasarana</h3>
+                    <p class="text-sm font-semibold">${properties.KETERANGAN || 'Tidak diketahui'}</p>
                   </div>
                 </div>
               </div>
             `;
           });
 
-          // Bangunan
+          // 3. Bangunan (DIUBAH SESUAI PERMINTAAN)
           featuresByLayer.bangunan.forEach(feature => {
-            const properties = feature.properties;
+            const props = feature.properties;
             const getBuildingIcon = (keterangan) => {
               return keterangan === 'Gedung' ? '🏢' : '🏠';
             };
             
-            const icon = getBuildingIcon(properties.KETERANGAN);
+            const icon = getBuildingIcon(props.KETERANGAN);
             
             popupContent += `
               <div class="bg-gradient-to-r from-orange-400 to-red-500 p-3 text-white rounded-lg shadow-lg">
-                <div class="flex items-center">
-                  <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 text-lg">
+                <div class="flex items-start">
+                  <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mr-3 text-lg flex-shrink-0 mt-1">
                     ${icon}
                   </div>
-                  <div>
-                    <h3 class="font-bold text-sm">Bangunan</h3>
-                    <p class="text-xs">${properties.KETERANGAN || 'Tidak diketahui'}</p>
+                  <div class="flex-1">
+                    <h3 class="font-bold text-xs opacity-80 uppercase tracking-wider mb-1">Informasi Bangunan</h3>
+                    
+                    <!-- Menampilkan PL (Penggunaan Lahan) sebagai judul utama -->
+                    <p class="text-sm font-bold mb-2 border-b border-white/30 pb-1">${props.PL || 'Jenis Tidak Diketahui'}</p>
+                    
+                    <div class="space-y-1 text-xs">
+                      <p><span class="opacity-80">Detail:</span> <span class="font-medium">${props.KET_DETAIL || '-'}</span></p>
+                      <p><span class="opacity-80">Fungsi:</span> <span class="font-medium">${props.FUNGSI || '-'}</span></p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -753,8 +759,9 @@ map.on('load', async () => {
           // Tampilkan popup dengan semua content
           currentPopup = new mapboxgl.Popup({
             className: 'custom-popup-no-bg',
-            maxWidth: '280px',
-            closeButton: false
+            maxWidth: '300px', // Sedikit dilebarkan agar teks detail muat
+            closeButton: false,
+            offset: [0, -10] // Angkat sedikit agar tidak menutupi titik klik
           })
             .setLngLat(e.lngLat)
             .setHTML(popupContent)

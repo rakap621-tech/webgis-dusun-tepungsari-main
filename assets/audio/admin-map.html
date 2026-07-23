@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD WebGIS - Admin Tepungsari</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Leaflet-Geoman CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css" />
+  
+  <style>
+    body { margin: 0; padding: 0; font-family: sans-serif; }
+    #map { width: 100vw; height: 100vh; }
+    .admin-panel {
+      position: absolute; top: 10px; right: 10px; z-index: 1000;
+      background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-panel">
+    <h3>Manajemen Data Dusun</h3>
+    <button onclick="saveData()">Simpan Perubahan ke Database</button>
+  </div>
+
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet-Geoman JS -->
+  <script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>
+
+  <script>
+    // 1. Inisialisasi Peta (Koordinat Magelang / Sumberarum)
+    const map = L.map('map').setView([-7.545, 110.155], 15);
+
+    // Tambahkan Basemap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // 2. Tambahkan Toolbar CRUD (Leaflet-Geoman)
+    map.pm.addControls({
+      position: 'topleft',
+      drawMarker: true,
+      drawPolygon: true,
+      drawPolyline: true,
+      editMode: true,     // UPDATE
+      dragMode: true,
+      removalMode: true,  // DELETE
+    });
+
+    // Layer Group untuk menyimpan data yang digambar
+    const drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    // 3. Event Listener: CREATE (Saat pengguna selesai menggambar)
+    map.on('pm:create', (e) => {
+      const layer = e.layer;
+      drawnItems.addLayer(layer);
+      
+      // Tambahkan popup untuk mengisi atribut data
+      let type = e.shape;
+      layer.bindPopup(`
+        <b>Jenis:</b> ${type}<br>
+        <b>Nama:</b> <input type="text" id="feature-name" placeholder="Contoh: Sawah Pak Budi"><br>
+        <button onclick="console.log('Atribut disimpan')">Simpan Atribut</button>
+      `).openPopup();
+    });
+
+    // 4. Fungsi untuk mengirim GeoJSON ke Backend (PHP/Laravel)
+    function saveData() {
+      // Ubah semua layer menjadi format GeoJSON
+      const geojsonData = drawnItems.toGeoJSON();
+      
+      console.log("Data siap dikirim ke database:", geojsonData);
+      alert("Cek console untuk melihat data GeoJSON yang akan dikirim via AJAX!");
+      
+      /* 
+      // Contoh alur fetch API / AJAX ke Laravel/PHP:
+      fetch('/api/simpan-spasial', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(geojsonData)
+      }).then(response => response.json())
+        .then(data => alert('Data berhasil disimpan!'));
+      */
+    }
+  </script>
+</body>
+</html>
